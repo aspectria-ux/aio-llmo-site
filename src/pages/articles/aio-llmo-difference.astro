@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AIOとLLMOとGEOとAEO、結局どう違うのか",
+  "description": "AIO/LLMO/GEO/AEOという用語の包含関係について、複数の情報源を比較すると定義が一致しないことを解説する。",
+  "datePublished": "2026-08-07",
+  "dateModified": "2026-08-07",
+  "author": { "@type": "Person", "name": "運営者名をここに記入" },
+  "publisher": { "@type": "Organization", "name": "aio.tipsindex.net" }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AIOが最も広い上位概念というのは正しいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "業界で統一された結論ではありません。AIOを最上位とする説、AEOを最上位とする説、GEOが最も一般的とする説の3つが確認でき、いずれも標準化団体が定めたものではないため、情報源によって説明が食い違います。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AIOという言葉には複数の意味がありますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。「AI Optimization」（AI最適化全般を指す広義）と「AI Overview Optimization」（Google AI Overview限定を指す狭義）という、意味の異なる2つの使われ方が併存しています。"
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="AIOとLLMOとGEOとAEO、結局どう違うのか | aio.tipsindex.net"
+  description="AIO/LLMO/GEO/AEOという用語の包含関係を複数の情報源で比較すると、定義が一致しないことがわかる。業界で標準化されていない現状を、出典付きで整理する。"
+  jsonLd={[articleLd, faqLd]}
+>
+  <h1>AIOとLLMOとGEOとAEO、結局どう違うのか</h1>
+  <p>
+    結論から言うと、AIO・LLMO・GEO・AEOという4つの用語の包含関係について、
+    <strong>業界で統一された定義は存在しません。</strong>
+    これらはW3Cのような標準化団体が定めた用語ではなく、SEO・マーケティング業界内で
+    自然発生的に使われている言葉のため、情報源によって説明が食い違います。
+    実際に調べたところ、少なくとも3つの異なる説が確認できました。
+  </p>
+
+  <h2>説1: AIOが最上位概念とする説</h2>
+  <p>
+    AIO(AI Optimization、AI最適化全般の総称)が最も広く、その中にGEO(生成AIエンジンへの
+    引用最適化)、さらに技術的なLLMOが含まれるとする整理です。ただしこの説を紹介する記事自身が
+    「区分は学者・専門家によって解釈が異なる」「実務では3つをほぼ同じ意味で使っても問題ない」
+    と明記しています。
+    (出典: <a href="https://envydesign.jp/blog/2026/04/aio-geo-llmo-difference/" target="_blank" rel="noopener">ENVY DESIGN「AIO・GEO・LLMOの違いとは？」</a>)
+  </p>
+
+  <h2>説2: AEOが最上位概念とする説</h2>
+  <p>
+    こちらはAIOを「AI Overview Optimization」(Google AI Overview限定の最適化)という
+    狭い意味で定義し、LLMO・GEO・AIOはそれぞれ「どのプラットフォームを重視するか」で
+    分かれる下位カテゴリで、AEO(回答エンジン最適化)が最も広い概念だとしています。
+    (出典: <a href="https://note.com/frank_pr/n/n6b2d214d3ed2" target="_blank" rel="noopener">note「LLMO・AIO・GEO・AEOの違いと優先順位」</a>)
+  </p>
+
+  <h2>説3: GEOが最も一般的な用語とする説</h2>
+  <p>
+    英語圏の記事では、GEOが2026年時点で最も標準的に使われる用語で、LLMOはGEOとほぼ同義の
+    非標準的な言い換えだとされています。
+    (出典: <a href="https://llmpulse.ai/blog/geo-guide/" target="_blank" rel="noopener">LLM Pulse「Generative Engine Optimization (GEO)」</a>)
+  </p>
+
+  <h2>「AIO」という言葉自体が2つの異なる意味を持つ</h2>
+  <p>
+    整理すると、「AIO」という言葉自体、①AI最適化全般を指す広義(説1)と
+    ②Google AI Overview限定を指す狭義(説2)の、2つの矛盾する定義が併存している状態です。
+    どちらが「正しい」かを断定できる根拠は見つかりませんでした。
+  </p>
+
+  <h2>実務上どう扱うべきか</h2>
+  <p>
+    用語の包含関係を争っても実務上の意味は薄く、複数の情報源が共通して指摘しているのは
+    「実務で行う施策の内容にはほとんど差がない」という点です。本サイトでは、
+    どの用語を使う場合も「構造化データの実装」「AIクローラーへの技術対応」
+    「一次情報の発信」「計測の継続」という共通項目に沿って記録していきます。
+  </p>
+</BaseLayout>

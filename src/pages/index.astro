@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "aio.tipsindex.net",
+  "url": "https://aio.tipsindex.net/",
+  "description": "AIO/LLMOの実務手順を実際に試し、結果を記録する個人メディア"
+};
+---
+<BaseLayout
+  title="aio.tipsindex.net — AIO/LLMO実践記録"
+  description="AIO(AI最適化)・LLMO(大規模言語モデル最適化)の実務手順を、実際に手を動かして試し、ChatGPT/Gemini/Perplexity/Claudeでの引用・言及状況を記録していく個人メディアです。"
+  jsonLd={jsonLd}
+>
+  <h1>AIO/LLMO実践記録</h1>
+  <p>
+    このサイトは、AIO(AI Optimization)・LLMO(Large Language Model Optimization)と呼ばれる
+    分野の実務手順を、実際に自分の手で試して記録するための個人メディアです。
+  </p>
+  <p>
+    <strong>方針:</strong> 断定的な効果を保証する情報発信はせず、一次情報・公式仕様・実際の計測結果に
+    基づいた記録のみを公開します。業界内で用語の定義が統一されていない点も、そのまま正直に書きます。
+  </p>
+
+  <h2>最初に読む記事</h2>
+  <ul>
+    <li><a href="/articles/aio-llmo-difference/">AIOとLLMOとGEOとAEO、結局どう違うのか</a></li>
+  </ul>
+
+  <h2>このサイトについて</h2>
+  <p>
+    運営方針や実施ログの詳細は<a href="/about/">運営者について</a>、
+    週次の施策実施記録は<a href="/log/">施策ログ</a>をご覧ください。
+  </p>
+</BaseLayout>

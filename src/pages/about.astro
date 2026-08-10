@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "運営者名をここに記入",
+  "description": "AIO/LLMOの実務経験を積むため、本サイトを立ち上げ運営。経歴の詳細をここに記入。",
+  "url": "https://aio.tipsindex.net/about/"
+};
+---
+<BaseLayout
+  title="運営者について | aio.tipsindex.net"
+  description="aio.tipsindex.netの運営目的と運営者情報"
+  jsonLd={jsonLd}
+>
+  <h1>運営者について</h1>
+  <p>
+    [ここに運営者の経歴・目的を記入してください。E-E-A-T(経験・専門性・権威性・信頼性)の
+    観点から、実名・経歴・本サイトを運営する理由を具体的に書くことが推奨されています。]
+  </p>
+
+  <h2>本サイトの目的</h2>
+  <p>
+    AIO/LLMOと呼ばれる分野の実務手順を実際に手を動かして試し、その結果を正直に記録することで、
+    自分自身の実務経験を積むことを目的としています。
+  </p>
+
+  <h2>情報の正確性について</h2>
+  <p>
+    本サイトの記事は、一次情報・公式仕様・公的な統計を根拠とすることを方針としています。
+    憶測や未確認の情報については「不明」と明記します。効果を保証する表現は使いません。
+  </p>
+</BaseLayout>
