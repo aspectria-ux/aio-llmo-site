@@ -1,6 +1,6 @@
-# aio.tipsindex.net
+# AIO Field Notes
 
-> AIO(AI Optimization)・LLMO(Large Language Model Optimization)の実務手順を実際に試し、ChatGPT/Gemini/Perplexity/Claudeでの引用・言及状況を記録する個人メディアです。用語の定義は業界で統一されていないため、本サイトでは出典を明示したうえで複数の説を併記する方針を取っています。
+> AIO(AI Optimization)・LLMO(Large Language Model Optimization)の実務手順を実際に試し、ChatGPT/Gemini/Perplexity/Claudeでの引用・言及状況を記録する個人メディアです。運営者はマーケティング/ブランディングプランナーのasatrid。用語の定義は業界で統一されていないため、本サイトでは出典を明示したうえで複数の説を併記する方針を取っています。
 
 このサイトの記事は、実務で使われている手法を実際に試した記録であり、効果を保証するものではありません。各記事には根拠となる一次情報へのリンクを付記しています。
 
@@ -14,4 +14,4 @@
 
 ## Optional
 
-- [運営者について](https://aio.tipsindex.net/about/): 運営者の経歴・目的
+- [運営者について](https://aio.tipsindex.net/about/): 運営者asatridの経歴・目的
