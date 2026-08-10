@@ -8,6 +8,42 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <h1>施策ログ</h1>
   <p>週次で実施した施策と、AI引用計測トラッキングシートの集計結果をここに記録していきます。</p>
 
+  <h2>2026-08-10</h2>
+  <p>
+    Cloudflare Workers(Git連携)でサイトをデプロイし、独自サブドメイン
+    (aio.tipsindex.net)に接続。公開後、robots.txtに想定外の問題が見つかったので記録する。
+  </p>
+  <ul>
+    <li>
+      デプロイ方式: Astroで静的ビルドし、Cloudflare Workers Buildsを使いGitHubリポジトリと連携。
+      <code>wrangler.jsonc</code>で<code>assets.directory</code>を<code>./dist</code>に指定する構成
+      (Cloudflareは新規プロジェクトに対しClassic Pagesではなくこの方式を推奨している)。
+    </li>
+    <li>
+      <strong>問題発見:</strong> 自分で書いたrobots.txtでは主要AIクローラーをすべて
+      <code>Allow: /</code>にしていたが、公開後に実際のURLを確認すると、
+      同じUser-agent(GPTBot・ClaudeBot・CCBot・Google-Extended・Applebot-Extended等)に対して
+      <strong>矛盾する<code>Disallow: /</code>のブロックが先頭に自動追加</strong>されていた。
+    </li>
+    <li>
+      <strong>原因:</strong> Cloudflareのゾーン単位機能「AI Crawl Control」に、独立した2つの制御があった。
+      (1) Security画面の個別クローラー「Block Crawler」トグル(実際の403ブロックを制御)、
+      (2) 「Managed robots.txt」トグル(robots.txtへの自動追記を制御、(1)とは別に動作)。
+      両方をオフにしないと、意図した通りのrobots.txtにはならなかった。
+    </li>
+    <li>
+      <strong>対応:</strong> Security画面で対象クローラーのBlockをオフ、さらに
+      「AI Crawl Control」→「Signals」にある「Managed robots.txt」トグルをオフに変更。
+      変更後、robots.txtを再取得して意図通りの内容になっていることを確認した。
+    </li>
+    <li>
+      <strong>学び:</strong> 自分のリポジトリ内のrobots.txtが正しくても、
+      Cloudflare側のゾーン設定で上書き・追記されるケースがある。
+      デプロイ後は必ず本番URLで実際のrobots.txtを直接確認する必要がある
+      (ソースコードの内容を見ただけでは不十分)。
+    </li>
+  </ul>
+
   <h2>2026-08-07</h2>
   <ul>
     <li>サイト公開準備を開始</li>
