@@ -21,6 +21,7 @@ const SITE_NAME = "AIO Field Notes";
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={Astro.url.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- OGP -->
     <meta property="og:title" content={title} />
@@ -48,9 +49,8 @@ const SITE_NAME = "AIO Field Notes";
           <span class="brand-name">{SITE_NAME}</span>
         </a>
         <nav>
-          <a href="/articles/">記事</a>
-          <a href="/log/">施策ログ</a>
-          <a href="/about/">運営者</a>
+          <a href="/articles/">Article</a>
+          <a href="/log/">Log</a>
         </nav>
       </div>
     </header>
@@ -58,6 +58,7 @@ const SITE_NAME = "AIO Field Notes";
       <slot />
     </main>
     <footer>
+      <div class="footer-links"><a href="/about/">運営者について</a></div>
       <p>&copy; 2026 {SITE_NAME}(aio.tipsindex.net) — AIO/LLMO実践記録</p>
     </footer>
   </body>
@@ -65,7 +66,7 @@ const SITE_NAME = "AIO Field Notes";
 
 <style>
   :root {
-    --ink: #1a1f2b;
+    --ink: #333333;
     --navy: #16233f;
     --navy-soft: #3c5075;
     --rule: #e4e2db;
@@ -132,8 +133,9 @@ const SITE_NAME = "AIO Field Notes";
   header nav a {
     color: var(--navy-soft);
     text-decoration: none;
-    font-size: 0.88rem;
-    letter-spacing: 0.03em;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   header nav a:hover {
@@ -154,55 +156,11 @@ const SITE_NAME = "AIO Field Notes";
     letter-spacing: 0.01em;
   }
 
-  h1 {
-    font-family: "Noto Serif JP", serif;
-    font-weight: 700;
-    font-size: 1.85rem;
-    letter-spacing: 0.01em;
-    line-height: 1.5;
-    margin-bottom: 1.4rem;
-    color: var(--navy);
+  .footer-links {
+    margin-bottom: 0.6rem;
   }
 
-  h2 {
-    font-family: "Noto Serif JP", serif;
-    font-weight: 500;
-    font-size: 1.25rem;
-    margin-top: 2.6rem;
-    margin-bottom: 1rem;
-    color: var(--navy);
-    border-left: 3px solid var(--navy);
-    padding-left: 0.7rem;
-  }
-
-  p, li {
-    font-size: 0.98rem;
-  }
-
-  a {
-    color: var(--navy-soft);
-  }
-
-  a:hover {
-    color: var(--navy);
-  }
-
-  strong {
-    color: var(--navy);
-  }
-
-  ul, ol {
-    padding-left: 1.3rem;
-  }
-
-  li + li {
-    margin-top: 0.5rem;
-  }
-
-  code {
-    background: #f0efe9;
-    padding: 0.1rem 0.35rem;
-    border-radius: 3px;
-    font-size: 0.88em;
-  }
-</style>
+  .footer-links a {
+    font-size: 0.72rem;
+    color: #a19d8c;
+    text-decoration: none;
