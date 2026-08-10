@@ -4,19 +4,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "aio.tipsindex.net",
+  "name": "AIO Field Notes",
   "url": "https://aio.tipsindex.net/",
-  "description": "AIO/LLMOの実務手順を実際に試し、結果を記録する個人メディア"
+  "description": "AIO/LLMOの実務手順を実際に試し、結果を記録する個人メディア",
+  "founder": {
+    "@type": "Person",
+    "name": "asatrid"
+  }
 };
 ---
 <BaseLayout
-  title="aio.tipsindex.net — AIO/LLMO実践記録"
+  title="AIO Field Notes — AIO/LLMO実践記録"
   description="AIO(AI最適化)・LLMO(大規模言語モデル最適化)の実務手順を、実際に手を動かして試し、ChatGPT/Gemini/Perplexity/Claudeでの引用・言及状況を記録していく個人メディアです。"
   jsonLd={jsonLd}
 >
   <h1>AIO/LLMO実践記録</h1>
   <p>
-    このサイトは、AIO(AI Optimization)・LLMO(Large Language Model Optimization)と呼ばれる
+    AIO Field Notesは、AIO(AI Optimization)・LLMO(Large Language Model Optimization)と呼ばれる
     分野の実務手順を、実際に自分の手で試して記録するための個人メディアです。
   </p>
   <p>
@@ -31,7 +35,7 @@ const jsonLd = {
 
   <h2>このサイトについて</h2>
   <p>
-    運営方針や実施ログの詳細は<a href="/about/">運営者について</a>、
+    運営方針や運営者の経歴は<a href="/about/">運営者について</a>、
     週次の施策実施記録は<a href="/log/">施策ログ</a>をご覧ください。
   </p>
 </BaseLayout>
