@@ -10,6 +10,8 @@ export interface Props {
 
 const { title, description, jsonLd } = Astro.props;
 const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+const SITE_NAME = "AIO Field Notes";
 ---
 <!doctype html>
 <html lang="ja">
@@ -25,6 +27,14 @@ const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:description" content={description} />
     <meta property="og:type" content="article" />
     <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:site_name" content={SITE_NAME} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
     {jsonLdList.map((data) => (
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
@@ -32,53 +42,167 @@ const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   </head>
   <body>
     <header>
-      <nav>
-        <a href="/">aio.tipsindex.net</a>
-        <a href="/articles/">記事一覧</a>
-        <a href="/log/">施策ログ</a>
-        <a href="/about/">運営者について</a>
-      </nav>
+      <div class="header-inner">
+        <a href="/" class="brand">
+          <span class="brand-mark">AIO</span>
+          <span class="brand-name">{SITE_NAME}</span>
+        </a>
+        <nav>
+          <a href="/articles/">記事</a>
+          <a href="/log/">施策ログ</a>
+          <a href="/about/">運営者</a>
+        </nav>
+      </div>
     </header>
     <main>
       <slot />
     </main>
     <footer>
-      <p>&copy; 2026 aio.tipsindex.net — AIO/LLMO実践記録</p>
+      <p>&copy; 2026 {SITE_NAME}(aio.tipsindex.net) — AIO/LLMO実践記録</p>
     </footer>
   </body>
 </html>
 
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    line-height: 1.8;
-    color: #222;
+  :root {
+    --ink: #1a1f2b;
+    --navy: #16233f;
+    --navy-soft: #3c5075;
+    --rule: #e4e2db;
+    --paper: #fdfcf9;
   }
+
+  html {
+    background: var(--paper);
+  }
+
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    line-height: 1.85;
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  header {
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.6rem 0 1.3rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    text-decoration: none;
+    color: var(--navy);
+  }
+
+  .brand-mark {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--navy);
+    padding: 0.05rem 0.4rem;
+  }
+
+  .brand-name {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
   header nav {
     display: flex;
-    gap: 1.2rem;
-    padding: 1.2rem 0;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 2rem;
+    gap: 1.4rem;
   }
+
   header nav a {
-    color: #1F4E78;
+    color: var(--navy-soft);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
   }
-  header nav a:first-child {
-    font-weight: bold;
+
+  header nav a:hover {
+    color: var(--navy);
+    border-bottom: 1px solid var(--navy);
   }
+
+  main {
+    min-height: 60vh;
+  }
+
   footer {
-    margin-top: 3rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid #eee;
-    color: #888;
-    font-size: 0.85rem;
+    margin-top: 4rem;
+    padding: 1.75rem 0 3rem;
+    border-top: 1px solid var(--rule);
+    color: #8a8778;
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
   }
-  h1 { font-size: 1.7rem; }
-  h2 { font-size: 1.3rem; margin-top: 2rem; }
+
+  h1 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 1.85rem;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    margin-bottom: 1.4rem;
+    color: var(--navy);
+  }
+
+  h2 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-top: 2.6rem;
+    margin-bottom: 1rem;
+    color: var(--navy);
+    border-left: 3px solid var(--navy);
+    padding-left: 0.7rem;
+  }
+
+  p, li {
+    font-size: 0.98rem;
+  }
+
+  a {
+    color: var(--navy-soft);
+  }
+
+  a:hover {
+    color: var(--navy);
+  }
+
+  strong {
+    color: var(--navy);
+  }
+
+  ul, ol {
+    padding-left: 1.3rem;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  code {
+    background: #f0efe9;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.88em;
+  }
 </style>
