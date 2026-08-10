@@ -7,9 +7,10 @@ const articleLd = {
   "headline": "AIOとLLMOとGEOとAEO、結局どう違うのか",
   "description": "AIO/LLMO/GEO/AEOという用語の包含関係について、複数の情報源を比較すると定義が一致しないことを解説する。",
   "datePublished": "2026-08-07",
-  "dateModified": "2026-08-10",
+  "dateModified": "2026-08-11",
   "author": { "@type": "Person", "name": "asatrid" },
-  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" },
+  "image": "https://aio.tipsindex.net/aio-llmo-theories.png"
 };
 
 const faqLd = {
@@ -48,6 +49,19 @@ const faqLd = {
     自然発生的に使われている言葉のため、情報源によって説明が食い違います。
     実際に調べたところ、少なくとも3つの異なる説が確認できました。
   </p>
+
+  <figure>
+    <img
+      src="/aio-llmo-theories.png"
+      alt="AIO・LLMO・GEO・AEOの包含関係に関する3つの説(AIOが最上位、AEOが最上位、GEOが標準的用語)を整理した図"
+      width="1408"
+      height="768"
+      loading="lazy"
+    />
+    <figcaption>
+      本記事の3つの説を要約した図(Gemini生成、asatrid作成・監修)。内容の詳細と出典は本文を参照。
+    </figcaption>
+  </figure>
 
   <h2>説1: AIOが最上位概念とする説</h2>
   <p>
@@ -88,3 +102,22 @@ const faqLd = {
     「一次情報の発信」「計測の継続」という共通項目に沿って記録していきます。
   </p>
 </BaseLayout>
+
+<style>
+  figure {
+    margin: 1.75rem 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #e4e2db;
+    display: block;
+  }
+
+  figcaption {
+    font-size: 0.78rem;
+    color: #8a8778;
+    margin-top: 0.5rem;
+  }
+</style>
