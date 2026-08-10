@@ -4,31 +4,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "運営者名をここに記入",
-  "description": "AIO/LLMOの実務経験を積むため、本サイトを立ち上げ運営。経歴の詳細をここに記入。",
+  "name": "asatrid",
+  "jobTitle": "マーケティング / ブランディングプランナー",
+  "description": "事業会社・支援会社でマーケティング戦略の立案から実行までを担当し、現在はフリーランス。AIO/LLMOの実務経験を積むため本サイトを運営。",
   "url": "https://aio.tipsindex.net/about/"
 };
 ---
 <BaseLayout
-  title="運営者について | aio.tipsindex.net"
-  description="aio.tipsindex.netの運営目的と運営者情報"
+  title="運営者について | AIO Field Notes"
+  description="AIO Field Notes運営者 asatrid の経歴と、本サイトの運営目的"
   jsonLd={jsonLd}
 >
   <h1>運営者について</h1>
+
   <p>
-    [ここに運営者の経歴・目的を記入してください。E-E-A-T(経験・専門性・権威性・信頼性)の
-    観点から、実名・経歴・本サイトを運営する理由を具体的に書くことが推奨されています。]
+    <strong>asatrid</strong>(ハンドルネーム)
+  </p>
+  <p>
+    マーケティング/ブランディングプランナー。事業会社・支援会社の両方で、
+    マーケティング戦略の立案から実行までを担当。現在はフリーランスとして活動中。
   </p>
 
   <h2>本サイトの目的</h2>
   <p>
-    AIO/LLMOと呼ばれる分野の実務手順を実際に手を動かして試し、その結果を正直に記録することで、
-    自分自身の実務経験を積むことを目的としています。
+    従来のマーケティング・ブランディングの実務に加え、AIO(AI Optimization)・
+    LLMO(Large Language Model Optimization)と呼ばれる新しい領域の実務経験を、
+    自分の手を動かして積むために本サイトを立ち上げた。転職・副業でこの領域のスキルを
+    証明できる状態を作ることを目標にしている。
   </p>
 
   <h2>情報の正確性について</h2>
   <p>
-    本サイトの記事は、一次情報・公式仕様・公的な統計を根拠とすることを方針としています。
-    憶測や未確認の情報については「不明」と明記します。効果を保証する表現は使いません。
+    本サイトの記事は、一次情報・公式仕様・公的な統計を根拠とすることを方針としている。
+    憶測や未確認の情報については「不明」と明記する。効果を保証する表現は使わない。
   </p>
 </BaseLayout>
