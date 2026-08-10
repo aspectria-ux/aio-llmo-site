@@ -12,6 +12,16 @@ const jsonLd = {
     "name": "asatrid"
   }
 };
+
+// 新しい記事を追加するときは、この配列に1件追加するだけでトップページに反映される
+const articles = [
+  {
+    title: "AIOとLLMOとGEOとAEO、結局どう違うのか",
+    slug: "/articles/aio-llmo-difference/",
+    date: "2026-08-07",
+    excerpt: "AIO/LLMO/GEO/AEOという用語の包含関係を複数の情報源で比較すると、定義が一致しないことがわかる。業界で標準化されていない現状を、出典付きで整理する。",
+  },
+].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 <BaseLayout
   title="AIO Field Notes — AIO/LLMO実践記録"
@@ -39,3 +49,123 @@ const jsonLd = {
     <thead>
       <tr>
         <th>用語</th>
+        <th>正式名称</th>
+        <th>主な対象</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SEO</td>
+        <td>Search Engine Optimization</td>
+        <td>検索エンジンの検索結果</td>
+      </tr>
+      <tr>
+        <td>AIO</td>
+        <td>AI Optimization <br />/ AI Overview Optimization</td>
+        <td>AI検索全般、またはGoogle AI Overview限定(情報源により定義が異なる)</td>
+      </tr>
+      <tr>
+        <td>LLMO</td>
+        <td>Large Language Model Optimization</td>
+        <td>ChatGPT/Claude等の大規模言語モデル</td>
+      </tr>
+      <tr>
+        <td>GEO</td>
+        <td>Generative Engine Optimization</td>
+        <td>生成AI搭載検索エンジン全般</td>
+      </tr>
+      <tr>
+        <td>AEO</td>
+        <td>Answer Engine Optimization</td>
+        <td>回答エンジン全般(ChatGPT/Perplexity/Gemini等)</td>
+      </tr>
+    </tbody>
+    <caption>
+      出典: <a href="https://note.com/frank_pr/n/n6b2d214d3ed2" target="_blank" rel="noopener">note「LLMO・AIO・GEO・AEOの違いと優先順位」</a>ほか。用語の包含関係には複数の説があり、標準化団体による定義はない。
+    </caption>
+  </table>
+
+  <h2>Latest Article <span class="h2-sub">最新の記事</span></h2>
+  <div class="article-list">
+    {articles.map((a) => (
+      <a href={a.slug} class="article-card">
+        <span class="article-date">{a.date}</span>
+        <span class="article-title">{a.title}</span>
+        <span class="article-excerpt">{a.excerpt}</span>
+      </a>
+    ))}
+  </div>
+
+  <h2>このサイトについて</h2>
+  <p>
+    運営方針や運営者の経歴は<a href="/about/">運営者について</a>、
+    週次の施策実施記録は<a href="/log/">施策ログ</a>をご覧ください。
+  </p>
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a8778;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .h2-sub {
+    font-family: "Inter", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #8a8778;
+    letter-spacing: 0.02em;
+    margin-left: 0.5rem;
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .article-card {
+    display: block;
+    padding: 1.1rem 1.3rem;
+    border: 1px solid #e4e2db;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .article-card:hover {
+    border-color: #16233f;
+  }
+
+  .article-date {
+    display: block;
+    font-size: 0.72rem;
+    color: #a19d8c;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.35rem;
+  }
+
+  .article-title {
+    display: block;
+    font-family: "Noto Serif JP", serif;
+    font-size: 1.02rem;
+    color: #16233f;
+    margin-bottom: 0.45rem;
+  }
+
+  .article-excerpt {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.6;
+  }
+</style>
