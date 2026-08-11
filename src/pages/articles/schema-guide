@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "FAQPage/Articleスキーマ(構造化データ)の実装方法【初心者向け】",
+  "description": "schema.orgの構造化データ(JSON-LD)を、非エンジニアにもわかりやすく解説。Article/FAQPageの書き方と検証方法を、本サイトの実例付きで紹介する。",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Person", "name": "asatrid" },
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "構造化データを入れるとAI検索に必ず引用されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "断定はできません。構造化データはAIや検索エンジンが内容を正確に理解する助けにはなりますが、引用や上位表示を保証するものではありません。あくまで「AIが誤解しにくくなる」ための下準備という位置づけです。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "FAQPageのマークアップは、実際に表示されていない内容でもつけて良いですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "推奨されません。schema.orgのガイドラインでは、ページ本文に実際に表示されている内容とマークアップの内容を一致させることが前提とされています。表示されていない内容にマークアップだけを付けるのは避けるべきです。"
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="FAQPage/Articleスキーマ(構造化データ)の実装方法【初心者向け】 | AIO Field Notes"
+  description="schema.orgの構造化データ(JSON-LD)を、非エンジニアにもわかりやすく解説。Article/FAQPageの書き方と検証方法を、本サイトの実例付きで紹介する。"
+  jsonLd={[articleLd, faqLd]}
+>
+  <h1>FAQPage/Articleスキーマ(構造化データ)の実装方法【初心者向け】</h1>
+
+  <p>
+    <strong>構造化データとは、ページの内容を「これはタイトルです」「これは質問と回答です」というように、
+    人間だけでなくAIやプログラムにもわかる形でラベル付けする仕組みです。</strong>
+    難しく聞こえますが、実際に書くのはページの見た目とは別に追加する、短いコードの塊だけです。
+  </p>
+
+  <h2>なぜ必要なのか</h2>
+  <p>
+    人間はページを見れば「これは記事のタイトルだな」「ここはよくある質問のコーナーだな」と
+    直感的に理解できます。しかしAIやプログラムは、HTMLの見た目だけでは
+    それが何の情報なのか正確に判断しづらいことがあります。
+    構造化データは、この認識のズレを減らすための「注釈」のようなものです。
+    schema.orgという共通の語彙(ボキャブラリー)を使って書きます。
+  </p>
+
+  <h2>JSON-LDという書き方</h2>
+  <p>
+    構造化データにはいくつかの書き方がありますが、現在最も一般的なのは
+    「JSON-LD」という形式です。ページの<code>&lt;head&gt;</code>タグの中に、
+    以下のような専用のコードブロックとして追加します。
+  </p>
+  <pre><code>{`<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "記事タイトル"
+}
+</script>`}</code></pre>
+  <p>
+    ページの見た目には一切影響しません。裏側でAI・検索エンジンだけに情報を伝える仕組みです。
+  </p>
+
+  <h2>Article(記事)の書き方</h2>
+  <p>
+    通常の記事には、以下のような項目を書きます。
+  </p>
+  <pre><code>{`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "記事タイトルをここに",
+  "description": "記事の要約を1〜2文で",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Person", "name": "運営者名" },
+  "publisher": { "@type": "Organization", "name": "サイト名" }
+}`}</code></pre>
+  <p>
+    <code>headline</code>(タイトル)、<code>datePublished</code>(公開日)、
+    <code>author</code>(著者)あたりが基本項目です。日付は「2026-08-11」のような形式で書きます。
+  </p>
+
+  <h2>FAQPage(よくある質問)の書き方</h2>
+  <p>
+    ページ内に質問と回答の形式のコンテンツがある場合、FAQPageというタイプが使えます。
+    AIの回答内でそのまま引用されやすい形式と言われています。
+  </p>
+  <pre><code>{`{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "質問文をここに",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "回答文をここに"
+      }
+    }
+  ]
+}`}</code></pre>
+  <p>
+    <strong>重要な注意点:</strong> ここに書く質問・回答は、実際にページの本文にも
+    表示されている内容と一致させる必要があります。表示されていない内容にだけ
+    マークアップを付けることは、schema.orgのガイドライン上推奨されていません。
+  </p>
+
+  <h2>実装後の確認方法</h2>
+  <p>
+    書いたコードが正しいかどうかは、Googleが無料で提供している検証ツールで確認できます。
+  </p>
+  <ul>
+    <li>
+      <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Google Rich Results Test</a>
+      — ページのURLを入力するだけで、エラーがないか診断してくれます
+    </li>
+    <li>
+      <a href="https://validator.schema.org/" target="_blank" rel="noopener">Schema Markup Validator</a>
+      — schema.orgの語彙として正しい形式かをより厳密に検証します
+    </li>
+  </ul>
+
+  <h2>本サイトの実例</h2>
+  <p>
+    本サイトの各記事ページには、実際にArticleとFAQPageのJSON-LDを実装しています。
+    ブラウザで記事ページを開き、右クリック→「ページのソースを表示」から
+    <code>application/ld+json</code>で検索すると、実際のコードを確認できます。
+  </p>
+</BaseLayout>
+
+<style>
+  pre {
+    background: #f0efe9;
+    border: 1px solid #e4e2db;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+</style>
