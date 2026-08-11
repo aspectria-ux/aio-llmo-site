@@ -6,6 +6,7 @@
 
 ## Docs
 
+- [llms.txtとは？初心者向けに役割・書き方をゼロから解説](https://aio.tipsindex.net/articles/llms-txt-guide/): llms.txtの目的・公式仕様・書き方の解説
 - [AIOとLLMOとGEOとAEO、結局どう違うのか](https://aio.tipsindex.net/articles/aio-llmo-difference/): 用語の包含関係について複数の情報源を比較した記事
 
 ## Log
