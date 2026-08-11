@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Amazonbot、TikTok Spider…Eコマース系・データ転売系クローラーとは",
+  "description": "ChatGPTやClaude以外にも、サイトを訪れるAI関連クローラーは数多くある。Amazonbot、Bytespider(TikTok Spider)、PetalBot、ProRataIncなど、目的の異なるクローラーを実際の観測データとともに整理する。",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Person", "name": "asatrid" },
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Amazonbotは何をしているクローラーですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Amazon社が運用するクローラーで、大規模なデータ収集に使われているとされています。ChatGPTやPerplexityのような回答エンジンとは異なり、主要なAI検索プラットフォームとして一般に知られているわけではありません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ProRataIncは怪しいクローラーですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。ProRataIncは、AI企業ではなくメディア出版社側に立つ「Gist Answers」というサービスを運営する企業のクローラーです。広告収益の50%を、回答生成に使われたコンテンツの提供元(パブリッシャー)に分配するモデルを採用しており、700以上のメディアが参加しています。無断で使われる従来型のクローラーとは性質が異なります。"
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Amazonbot、TikTok Spider…Eコマース系・データ転売系クローラーとは | AIO Field Notes"
+  description="ChatGPTやClaude以外にも、サイトを訪れるAI関連クローラーは数多くある。Amazonbot、Bytespider(TikTok Spider)、PetalBot、ProRataIncなど、目的の異なるクローラーを実際の観測データとともに整理する。"
+  jsonLd={[articleLd, faqLd]}
+>
+  <h1>Amazonbot、TikTok Spider…Eコマース系・データ転売系クローラーとは</h1>
+
+  <p>
+    <strong>ChatGPTやClaude以外にも、様々な目的でサイトを訪れるAI関連クローラーが数多く存在します。</strong>
+    本サイトを運営するCloudflareの管理画面(AI Crawl Control)で実際にアクセスログを見たところ、
+    GPTBotやClaudeBotだけでなく、聞き慣れない名前のクローラーが多数記録されていました。
+    ここでは、その中でも代表的なものを整理します。
+  </p>
+
+  <h2>実際の観測データ</h2>
+  <p>
+    2026年8月時点、本サイトが所属するCloudflareアカウント全体(複数サイトの合計)の
+    直近24時間の集計では、AIクローラーからのアクセスが881件検出され、
+    そのうち856件がブロック(403エラー)されていました。個別には、
+    Amazonbotが140件、GPTBotが75件、ClaudeBotが66件、CCBotが6件などとなっており、
+    Claude-SearchBot(9件)やClaude-User(2件)のような「回答時にリアルタイム参照する」
+    タイプのクローラーは許可されていました。
+  </p>
+
+  <h2>クローラーの性質は一つではない</h2>
+  <p>
+    「聞いたことのないクローラー」を十把一絡げに警戒する前に、まず性質を分けて考えると
+    整理しやすくなります。
+  </p>
+
+  <h3>1. 大手プラットフォームの学習・検索用クローラー</h3>
+  <p>
+    <strong>Amazonbot</strong>(Amazon運営)は大規模なデータ収集に使われているとされていますが、
+    ChatGPTやPerplexityのような「回答エンジン」として一般に広く知られているわけではなく、
+    具体的な用途の詳細は公開情報からは断定できません(不明)。
+  </p>
+  <p>
+    <strong>Bytespider</strong>(通称TikTok Spider、ByteDance運営)は、同社のAIチャットボット
+    「Doubao(豆包)」などの学習用データセットを構築するために、大規模なコンテンツ収集を
+    行っているとされています。
+    (出典: <a href="https://www.botify.com/insight/ai-crawler-bots" target="_blank" rel="noopener">Botify「What Are AI Crawler Bots?」</a>)
+  </p>
+  <p>
+    <strong>PetalBot</strong>(Huawei運営)は、同社の「Petal Search」向けに、モバイル検索や
+    AI活用検索の索引付けを行うクローラーです。
+  </p>
+
+  <h3>2. AIエージェント支援系のクローラー</h3>
+  <p>
+    <strong>Novellum AI Crawl</strong>は、AI自動化ツールがサイトを走査し、
+    外部コンテンツを読み取る必要のあるエージェントを支援するために使われているとされています。
+    運営元のNovellum社は、AIエージェント・ワークフローの可観測性(オブザーバビリティ)や
+    自動修復機能を提供する米国企業です。
+  </p>
+
+  <h3>3. パブリッシャーに収益を還元するタイプ</h3>
+  <p>
+    最も意外性があったのが<strong>ProRataInc</strong>です。これはAI企業が一方的にコンテンツを
+    収集するタイプのクローラーではなく、「Gist Answers」というAI回答サービスを運営する
+    ProRata.ai社のクローラーです。同社は広告収益の50%を、回答生成に実際に使われた
+    コンテンツの提供元(パブリッシャー)へ、貢献度に応じて分配するモデルを採用しています。
+    2026年時点で700以上のメディアがこの仕組みに参加していると報告されています。
+    (出典: <a href="https://www.businesswire.com/news/home/20250905771340/en/ProRata-Closes-%2440-Million-Series-B-Financing-and-Launches-Gist-Answers-Creating-New-Revenue-Opportunities-for-Publishers-in-the-AI-Era" target="_blank" rel="noopener">Business Wire「ProRata Closes $40 Million Series B Financing」</a>)
+  </p>
+
+  <h2>実務上どう判断すればいいか</h2>
+  <p>
+    全てのクローラーを一律に許可・拒否するのではなく、以下のような軸で考えると
+    判断しやすくなります。
+  </p>
+  <ul>
+    <li>自社のコンテンツが無断学習に使われることに抵抗がなければ、学習系クローラーも許可する</li>
+    <li>収益還元モデルを採用しているクローラー(ProRataIncなど)は、
+      パブリッシャーとして参加する価値があるか個別に検討する</li>
+    <li>用途が不明なクローラーは、無理に許可せず様子を見るという判断も合理的</li>
+  </ul>
+  <p>
+    「聞いたことがない名前=危険」ではなく、「聞いたことがない名前=まだ実態を調べていないだけ」
+    という前提で、一つずつ確認していく姿勢が実務では重要だと感じています。
+  </p>
+</BaseLayout>
