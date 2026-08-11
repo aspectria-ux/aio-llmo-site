@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "llms.txtとは？初心者向けに役割・書き方をゼロから解説",
+  "description": "llms.txtの目的・公式仕様・書き方を、非エンジニアにもわかりやすく解説する。実際の効果については情報源が分かれている点も正直に紹介する。",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Person", "name": "asatrid" },
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "llms.txtとrobots.txtは同じものですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "別物です。robots.txtは「AIやクローラーにサイトへのアクセスを許可するか」を伝えるファイルで、llms.txtは「サイトの内容をAIに要約して伝える」ためのファイルです。役割が異なるため、両方設置しても問題ありません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "llms.txtを設置すればAI検索で引用されやすくなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "断定はできません。AnthropicやPerplexityは取得・活用していると報告されていますが、ChatGPTが読み込んでいるかは公式に確認されておらず、2026年時点でも大規模なAIが一律に読んでいるとは言えない状況です。設置して損はありませんが、それだけで引用が増えると保証するものではありません。"
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="llms.txtとは？初心者向けに役割・書き方をゼロから解説 | AIO Field Notes"
+  description="llms.txtの目的・公式仕様・書き方を、非エンジニアにもわかりやすく解説する。実際の効果については情報源が分かれている点も正直に紹介する。"
+  jsonLd={[articleLd, faqLd]}
+>
+  <h1>llms.txtとは？初心者向けに役割・書き方をゼロから解説</h1>
+
+  <p>
+    <strong>結論から言うと、llms.txtとは「このサイトはこういう内容です」とAIに一言で伝えるための、
+    シンプルな案内メモのようなファイルです。</strong>
+    サイトのルート(トップページと同じ階層)に <code>/llms.txt</code> という名前で置く、
+    Markdown形式のテキストファイルです。専門知識がなくても作れます。
+  </p>
+
+  <h2>なぜ必要なのか</h2>
+  <p>
+    ChatGPTやClaudeのようなAI(大規模言語モデル)は、一度に読み込める情報量に上限があります。
+    さらに、通常のWebページにはナビゲーションメニューや広告など、AIにとっては
+    ノイズになる情報も大量に含まれています。llms.txtは、そうした余分な情報を省き、
+    「このサイトの要点はここです」と簡潔にAIへ伝えるために提案されたファイル形式です。
+  </p>
+  <p>
+    提唱したのは、Answer.AIの共同創業者Jeremy Howard氏で、2024年9月3日に発表されました。
+    現在も特定の企業や団体が管理する「公式規格」ではなく、有志による提案(プロポーザル)という
+    位置づけです。
+    (出典: <a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org 公式サイト</a>)
+  </p>
+
+  <h2>robots.txtとの違い</h2>
+  <p>
+    似た名前のファイルに「robots.txt」がありますが、役割が全く異なります。
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>ファイル</th>
+        <th>役割</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>robots.txt</td>
+        <td>AIやクローラーに「アクセスして良いか・ダメか」を伝える</td>
+      </tr>
+      <tr>
+        <td>llms.txt</td>
+        <td>AIに「サイトの内容・要点」を伝える</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    アクセス許可を出す・出さないの話ではなく、あくまで「内容を要約して案内する」ためのファイルなので、
+    両方を設置しても問題ありません。むしろ補完し合う関係です。
+  </p>
+
+  <h2>公式仕様のポイント(むずかしく考えなくて大丈夫です)</h2>
+  <p>
+    llmstxt.orgが定める公式仕様では、以下の要素を上から順に書きます。
+    実際に必要なのは1〜3だけで、4以降は任意です。
+  </p>
+  <ol>
+    <li><strong>サイト名(見出し1つだけ)</strong> — 唯一の必須項目です</li>
+    <li><strong>サイトの要約(1〜2行)</strong> — 「&gt;」で始まる引用形式で書きます</li>
+    <li><strong>補足説明(任意)</strong> — もう少し詳しい説明があれば書きます</li>
+    <li><strong>関連ページのリンク一覧(任意)</strong> — 見出しごとにページを分類してリンクを並べます</li>
+    <li><strong>「Optional」という名前のリンク一覧(任意)</strong> — 「AIが余裕のあるときだけ読めばいい、優先度の低い情報」を示す特別な意味を持ちます</li>
+  </ol>
+
+  <h2>実際の書き方(3ステップ)</h2>
+  <p>
+    <strong>1. メモ帳に以下のような形で書きます(拡張子はどのファイルもテキスト形式でOKです)</strong>
+  </p>
+  <pre><code>{`# サイト名
+
+> サイトの要約を1〜2行で
+
+## Docs
+
+- [ページ名](https://example.com/page1): このページの簡単な説明
+- [ページ名2](https://example.com/page2): このページの簡単な説明`}</code></pre>
+  <p>
+    <strong>2. ファイル名を「llms.txt」にして保存します</strong>
+  </p>
+  <p>
+    <strong>3. サイトのルート階層(トップページと同じ場所)にアップロードします</strong>
+  </p>
+  <p>
+    サイトの作り方によっては、管理画面から直接アップロードできる場合もあります
+    (例: STUDIOは有料プランで「txtファイルアップロード」機能があります)。
+  </p>
+
+  <h2>本サイトの実例</h2>
+  <p>
+    このサイト自体のllms.txtも公開しています。実際にどう書いているか、参考にしてください。
+  </p>
+  <p>
+    → <a href="https://aio.tipsindex.net/llms.txt" target="_blank" rel="noopener">aio.tipsindex.net/llms.txt</a>
+  </p>
+
+  <h2>正直なところ、効果はあるのか</h2>
+  <p>
+    ここは誠実にお伝えしたい部分です。2026年時点の複数の情報源を確認したところ、
+    AnthropicやPerplexityはllms.txtを取得・活用していると報告されていますが、
+    ChatGPTが読み込んでいるかどうかは公式に確認されておらず、
+    「主要なAIが軒並み大量に読んでいる」とまでは言えない状況です。
+    llms.txtを置いたからといって、AI回答での引用が増えると保証するものではありません。
+    (出典: <a href="https://presenc.ai/research/state-of-llms-txt-2026" target="_blank" rel="noopener">Presenc AI「State of llms.txt 2026」</a>)
+  </p>
+  <p>
+    とはいえ、設置すること自体のコストはほぼゼロで、サイトの内容を自分自身で言語化して
+    整理する良い機会にもなります。「必須ではないが、やって損はない」というのが、
+    現時点でのフェアな評価だと考えています。
+  </p>
+</BaseLayout>
+
+<style>
+  pre {
+    background: #f0efe9;
+    border: 1px solid #e4e2db;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+</style>
