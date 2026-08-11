@@ -7,6 +7,10 @@
 ## Docs
 
 - [llms.txtとは？初心者向けに役割・書き方をゼロから解説](https://aio.tipsindex.net/articles/llms-txt-guide/): llms.txtの目的・公式仕様・書き方の解説
+- [robots.txtでAIクローラーを制御する方法](https://aio.tipsindex.net/articles/robots-txt-guide/): robots.txtの基本と、Cloudflare AI Crawl Controlの実体験
+- [Amazonbot、TikTok Spider…Eコマース系・データ転売系クローラーとは](https://aio.tipsindex.net/articles/ecommerce-crawlers/): 主要AI以外の各種クローラーの整理
+- [FAQPage/Articleスキーマの実装方法](https://aio.tipsindex.net/articles/schema-guide/): 構造化データ(JSON-LD)の書き方
+- [AI引用計測の始め方](https://aio.tipsindex.net/articles/citation-measurement-guide/): AI回答での引用・言及を計測する方法
 - [AIOとLLMOとGEOとAEO、結局どう違うのか](https://aio.tipsindex.net/articles/aio-llmo-difference/): 用語の包含関係について複数の情報源を比較した記事
 
 ## Log
