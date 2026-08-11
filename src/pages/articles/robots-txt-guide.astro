@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "robots.txtでAIクローラーを制御する方法(Cloudflareの落とし穴つき)",
+  "description": "robots.txtの基本と、主要AIクローラーを許可する書き方を初心者向けに解説。あわせて、CloudflareのAI Crawl Control機能が自分のrobots.txtを上書きしていた実体験を紹介する。",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Person", "name": "asatrid" },
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "robots.txtでAllowと書けば必ずAIに読んでもらえますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。robots.txtは「クローラーへのお願い」であり、強制力はありません。多くの主要AI企業は尊重すると公言していますが、必ず守られる保証はありません。また、Cloudflareなど一部のホスティング・CDNサービスが独自にrobots.txtへ内容を追記し、意図しないブロックが発生することもあります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "自分で書いたrobots.txtが正しいか、どう確認すればいいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "コードを確認するだけでは不十分です。サイト公開後に実際のURL(例: https://自分のドメイン/robots.txt )にブラウザでアクセスし、公開されている内容そのものを目で確認する必要があります。CDNやホスティング側の設定で内容が書き換えられている場合があるためです。"
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="robots.txtでAIクローラーを制御する方法(Cloudflareの落とし穴つき) | AIO Field Notes"
+  description="robots.txtの基本と、主要AIクローラーを許可する書き方を初心者向けに解説。あわせて、CloudflareのAI Crawl Control機能が自分のrobots.txtを上書きしていた実体験を紹介する。"
+  jsonLd={[articleLd, faqLd]}
+>
+  <h1>robots.txtでAIクローラーを制御する方法(Cloudflareの落とし穴つき)</h1>
+
+  <p>
+    <strong>robots.txtとは、「このサイトのどこに、どのクローラーが訪問して良いか」を伝える
+    ルールブックのようなファイルです。</strong>
+    AI検索に自分のサイトを引用してもらいたい場合、まずこのファイルで
+    AIのクローラーを閉め出していないか確認することが最初の一歩になります。
+  </p>
+
+  <h2>基本の書き方</h2>
+  <p>
+    robots.txtは、サイトのルート(トップページと同じ階層)に置く <code>/robots.txt</code> という
+    プレーンテキストファイルです。基本の構文はシンプルです。
+  </p>
+  <pre><code>{`User-agent: クローラーの名前
+Allow: / (許可する場合)
+Disallow: / (拒否する場合)`}</code></pre>
+  <p>
+    <code>User-agent</code>でどのクローラーに向けたルールかを指定し、
+    <code>Allow</code>で許可、<code>Disallow</code>で拒否を指定します。
+    クローラーごとにこの3行のセットを繰り返し並べていきます。
+  </p>
+
+  <h2>主要なAIクローラーの名前</h2>
+  <p>
+    2026年時点で、AI検索・AI回答に関わる主なクローラー名は以下の通りです
+    (各社の仕様は変更される可能性があるため、設置前に公式ドキュメントでの確認をおすすめします)。
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>クローラー名</th>
+        <th>運営</th>
+        <th>役割</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GPTBot</td>
+        <td>OpenAI</td>
+        <td>モデルの学習用データ収集</td>
+      </tr>
+      <tr>
+        <td>OAI-SearchBot / ChatGPT-User</td>
+        <td>OpenAI</td>
+        <td>ChatGPTの検索・回答時にリアルタイム参照</td>
+      </tr>
+      <tr>
+        <td>ClaudeBot</td>
+        <td>Anthropic</td>
+        <td>モデルの学習用データ収集</td>
+      </tr>
+      <tr>
+        <td>Claude-SearchBot / Claude-User</td>
+        <td>Anthropic</td>
+        <td>Claudeの検索・回答時にリアルタイム参照</td>
+      </tr>
+      <tr>
+        <td>PerplexityBot / Perplexity-User</td>
+        <td>Perplexity</td>
+        <td>回答生成のための検索・参照</td>
+      </tr>
+      <tr>
+        <td>Google-Extended</td>
+        <td>Google</td>
+        <td>AI Overview等の学習・生成への利用可否の指定</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    「学習用データ収集」系(GPTBot・ClaudeBotなど)と「回答時にリアルタイム参照」系
+    (OAI-SearchBot・PerplexityBotなど)は役割が異なります。今すぐAI回答に引用されたい場合は
+    後者を許可することが特に重要で、前者は将来のモデル学習に影響する可能性があるものの、
+    即効性は保証されません。
+  </p>
+
+  <h2>実際に起きた落とし穴: Cloudflareの「AI Crawl Control」</h2>
+  <p>
+    ここからは、本サイトを実際に運用していて遭遇した問題の記録です。
+    サイトはCloudflareでホスティングしていますが、自分で書いたrobots.txtに
+    「GPTBot: Allow」と書いていたにもかかわらず、実際に公開されていたrobots.txtを確認すると、
+    <strong>同じGPTBotに対して矛盾する「Disallow」が先頭に自動追加されていました。</strong>
+  </p>
+  <p>
+    原因は、Cloudflareのゾーン単位機能「AI Crawl Control」に、独立した2つの制御が存在していたためでした。
+  </p>
+  <ol>
+    <li>
+      <strong>Security画面の個別クローラー「Block Crawler」トグル</strong>
+      — 実際のアクセスを403エラーでブロックするかどうかの設定
+    </li>
+    <li>
+      <strong>「Managed robots.txt」トグル</strong>
+      — robots.txtへの自動追記を行うかどうかの設定。(1)とは別に、独立して動作する
+    </li>
+  </ol>
+  <p>
+    この2つは見た目が似ていますが完全に別の設定で、両方をオフにしないと、
+    自分の書いたrobots.txtの内容通りには公開されませんでした。
+    Cloudflareを含むCDN・ホスティングサービスの一部には、こうした「独自のAIクローラー制御機能」を
+    デフォルトで搭載しているケースがあるため、自分のファイルの中身が正しくても、
+    サービス側の設定で上書きされる可能性がある、という点は覚えておく価値があります。
+  </p>
+
+  <h2>公開後、必ず実際のURLで確認する</h2>
+  <p>
+    このトラブルから得た一番の教訓は「コードを見ただけで安心しない」ことです。
+    サイトを公開したら、以下の手順で必ず確認してください。
+  </p>
+  <ol>
+    <li>ブラウザで <code>https://自分のドメイン/robots.txt</code> に直接アクセスする</li>
+    <li>意図した通りに<code>Allow</code> / <code>Disallow</code>が書かれているか目視で確認する</li>
+    <li>もし見覚えのない内容が追加されていたら、利用しているホスティング・CDNサービスの管理画面で
+      AIクローラー関連の設定(名称はサービスによって異なります)を探して確認する</li>
+  </ol>
+
+  <h2>本サイトの実例</h2>
+  <p>
+    → <a href="https://aio.tipsindex.net/robots.txt" target="_blank" rel="noopener">aio.tipsindex.net/robots.txt</a>
+  </p>
+</BaseLayout>
+
+<style>
+  pre {
+    background: #f0efe9;
+    border: 1px solid #e4e2db;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+</style>
