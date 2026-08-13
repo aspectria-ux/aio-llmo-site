@@ -1,201 +1,100 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AIO Field Notes",
-  "url": "https://aio.tipsindex.net/",
-  "description": "AIO/LLMOの実務手順を実際に試し、結果を記録する個人メディア",
-  "founder": {
-    "@type": "Person",
-    "name": "asatrid"
-  }
-};
-
-// 新しい記事を追加するときは、この配列に1件追加するだけでトップページに反映される
-const articles = [
-  {
-    title: "AIOとLLMOとGEOとAEO、結局どう違うのか",
-    slug: "/articles/aio-llmo-difference/",
-    date: "2026-08-07",
-    excerpt: "AIO/LLMO/GEO/AEOという用語の包含関係を複数の情報源で比較すると、定義が一致しないことがわかる。業界で標準化されていない現状を、出典付きで整理する。",
-  },
-  {
-    title: "llms.txtとは？初心者向けに役割・書き方をゼロから解説",
-    slug: "/articles/llms-txt-guide/",
-    date: "2026-08-11",
-    excerpt: "llms.txtの目的・公式仕様・書き方を、非エンジニアにもわかりやすく解説する。実際の効果については情報源が分かれている点も正直に紹介する。",
-  },
-  {
-    title: "robots.txtでAIクローラーを制御する方法(Cloudflareの落とし穴つき)",
-    slug: "/articles/robots-txt-guide/",
-    date: "2026-08-11",
-    excerpt: "robots.txtの基本と主要AIクローラーの許可方法を解説。CloudflareのAI Crawl Control機能が自分のrobots.txtを上書きしていた実体験も紹介する。",
-  },
-  {
-    title: "Amazonbot、TikTok Spider…Eコマース系・データ転売系クローラーとは",
-    slug: "/articles/ecommerce-crawlers/",
-    date: "2026-08-11",
-    excerpt: "Amazonbot、Bytespider(TikTok Spider)、PetalBot、ProRataIncなど、目的の異なるクローラーを実際の観測データとともに整理する。",
-  },
-  {
-    title: "FAQPage/Articleスキーマ(構造化データ)の実装方法【初心者向け】",
-    slug: "/articles/schema-guide/",
-    date: "2026-08-11",
-    excerpt: "schema.orgの構造化データ(JSON-LD)を、非エンジニアにもわかりやすく解説。Article/FAQPageの書き方と検証方法を、本サイトの実例付きで紹介する。",
-  },
-  {
-    title: "AI引用計測の始め方【初心者向け】",
-    slug: "/articles/citation-measurement-guide/",
-    date: "2026-08-11",
-    excerpt: "ChatGPT・Gemini・Perplexity・Claudeで自分のサイトがどう扱われているかを、無料で計測する方法を初心者向けに解説する。",
-  },
-].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="AIO Field Notes — AIO/LLMO実践記録"
-  description="AIO(AI最適化)・LLMO(大規模言語モデル最適化)の実務手順を、実際に手を動かして試し、ChatGPT/Gemini/Perplexity/Claudeでの引用・言及状況を記録していく個人メディアです。"
-  jsonLd={jsonLd}
+  title="施策ログ | AIO Field Notes"
+  description="AIO/LLMO施策の実施記録と計測結果のログ"
 >
-  <p class="eyebrow">AIO / LLMO Field Notes</p>
-  <h1 class="hero-title">AIO/LLMO実践記録</h1>
-  <p>
-    AIO Field Notesは、AIO(AI Optimization)・LLMO(Large Language Model Optimization)と呼ばれる
-    分野の実務手順を、実際に自分の手で試して記録するための個人メディアです。
-  </p>
-  <p>
-    <strong>方針:</strong> 断定的な効果を保証する情報発信はせず、一次情報・公式仕様・実際の計測結果に
-    基づいた記録のみを公開します。業界内で用語の定義が統一されていない点も、そのまま正直に書きます。
-  </p>
+  <h1>施策ログ</h1>
+  <p>週次で実施した施策と、AI引用計測トラッキングシートの集計結果をここに記録していきます。</p>
 
-  <h2>Latest Article <span class="h2-sub">最新の記事</span></h2>
-  <div class="article-list">
-    {articles.map((a) => (
-      <a href={a.slug} class="article-card">
-        <span class="article-date">{a.date}</span>
-        <span class="article-title">{a.title}</span>
-        <span class="article-excerpt">{a.excerpt}</span>
-      </a>
-    ))}
-  </div>
-
-  <h2>用語の整理 <span class="h2-sub">Terms</span></h2>
+  <h2>2026-08-13</h2>
   <p>
-    AIO・LLMO・GEO・AEOは、業界で定義が統一されていない用語です。以下は現時点で
-    比較的よく参照される整理の一例で、唯一の正解ではありません。詳しい経緯と複数の説の比較は
-    <a href="/articles/aio-llmo-difference/">こちらの記事</a>にまとめています。
+    Google Search Consoleへの登録を検討し、事前確認としてrobots.txtが参照している
+    <code>sitemap-index.xml</code>に実際にアクセスしたところ404だった。原因調査から
+    GSC登録・サイトマップ送信までの記録。
   </p>
-  <table>
-    <thead>
-      <tr>
-        <th>用語</th>
-        <th>正式名称</th>
-        <th>主な対象</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>SEO</td>
-        <td>Search Engine Optimization</td>
-        <td>検索エンジンの検索結果</td>
-      </tr>
-      <tr>
-        <td>AIO</td>
-        <td>AI Optimization <br />/ AI Overview Optimization</td>
-        <td>AI検索全般、またはGoogle AI Overview限定(情報源により定義が異なる)</td>
-      </tr>
-      <tr>
-        <td>LLMO</td>
-        <td>Large Language Model Optimization</td>
-        <td>ChatGPT/Claude等の大規模言語モデル</td>
-      </tr>
-      <tr>
-        <td>GEO</td>
-        <td>Generative Engine Optimization</td>
-        <td>生成AI搭載検索エンジン全般</td>
-      </tr>
-      <tr>
-        <td>AEO</td>
-        <td>Answer Engine Optimization</td>
-        <td>回答エンジン全般(ChatGPT/Perplexity/Gemini等)</td>
-      </tr>
-    </tbody>
-    <caption>
-      出典: <a href="https://note.com/frank_pr/n/n6b2d214d3ed2" target="_blank" rel="noopener">note「LLMO・AIO・GEO・AEOの違いと優先順位」</a>ほか。用語の包含関係には複数の説があり、標準化団体による定義はない。
-    </caption>
-  </table>
+  <ul>
+    <li>
+      <strong>問題発見:</strong> <code>public/robots.txt</code>には
+      <code>Sitemap: https://aio.tipsindex.net/sitemap-index.xml</code>と記載していたが、
+      ブラウザで直接アクセスすると404。存在しないURLを案内していたことになる。
+    </li>
+    <li>
+      <strong>原因1:</strong> <code>astro.config.mjs</code>にサイトマップを自動生成する
+      <code>@astrojs/sitemap</code>連携が未導入だった。robots.txtに書いた案内文と、
+      実際のビルド構成が一致していなかった。
+    </li>
+    <li>
+      <strong>対応1:</strong> <code>@astrojs/sitemap</code>を追加。ただし最新版(3.7.x)には
+      ビルドが<code>Cannot read properties of undefined (reading 'reduce')</code>で
+      失敗する既知の不具合があったため、動作確認済みの<code>3.6.0</code>を明示的に指定した。
+    </li>
+    <li>
+      <strong>原因2:</strong> 新しい依存パッケージを<code>package.json</code>に追加した際、
+      <code>package-lock.json</code>(依存関係のバージョンを厳密に固定するファイル)を
+      更新しないままCommitしたため、Cloudflareのビルドが<code>npm ci</code>で
+      <code>EUSAGE</code>エラー(package.jsonとlockfileの不一致)を出して失敗した。
+    </li>
+    <li>
+      <strong>対応2:</strong> ローカルで正しい<code>package-lock.json</code>を再生成し、
+      GitHub上の既存ファイルと差し替え。再ビルド後、<code>sitemap-index.xml</code>が
+      正常なXMLを返すことを確認した。
+    </li>
+    <li>
+      Google Search Consoleにプロパティを追加し、HTMLタグ方式(<code>&lt;meta
+      name="google-site-verification"&gt;</code>を<code>BaseLayout.astro</code>の
+      <code>&lt;head&gt;</code>に追加)で所有権を確認。左メニューの「サイトマップ」から
+      <code>sitemap-index.xml</code>を送信し、ステータス「成功」を確認した。
+    </li>
+    <li>
+      <strong>学び:</strong> robots.txtやllms.txtに書いた「案内」と、実際のビルド出力は
+      別物であり、一致しているとは限らない。新しい依存パッケージを追加するときは、
+      <code>package.json</code>だけでなく<code>package-lock.json</code>も必ずセットで
+      更新・Commitする必要がある。今回も「コードを見ただけで安心せず、本番URLで確認する」
+      という8/10の教訓がそのまま当てはまった。
+    </li>
+  </ul>
 
-  <h2>このサイトについて</h2>
+  <h2>2026-08-10</h2>
   <p>
-    運営方針や運営者の経歴は<a href="/about/">運営者について</a>、
-    週次の施策実施記録は<a href="/log/">施策ログ</a>をご覧ください。
+    Cloudflare Workers(Git連携)でサイトをデプロイし、独自サブドメイン
+    (aio.tipsindex.net)に接続。公開後、robots.txtに想定外の問題が見つかったので記録する。
   </p>
+  <ul>
+    <li>
+      デプロイ方式: Astroで静的ビルドし、Cloudflare Workers Buildsを使いGitHubリポジトリと連携。
+      <code>wrangler.jsonc</code>で<code>assets.directory</code>を<code>./dist</code>に指定する構成
+      (Cloudflareは新規プロジェクトに対しClassic Pagesではなくこの方式を推奨している)。
+    </li>
+    <li>
+      <strong>問題発見:</strong> 自分で書いたrobots.txtでは主要AIクローラーをすべて
+      <code>Allow: /</code>にしていたが、公開後に実際のURLを確認すると、
+      同じUser-agent(GPTBot・ClaudeBot・CCBot・Google-Extended・Applebot-Extended等)に対して
+      <strong>矛盾する<code>Disallow: /</code>のブロックが先頭に自動追加</strong>されていた。
+    </li>
+    <li>
+      <strong>原因:</strong> Cloudflareのゾーン単位機能「AI Crawl Control」に、独立した2つの制御があった。
+      (1) Security画面の個別クローラー「Block Crawler」トグル(実際の403ブロックを制御)、
+      (2) 「Managed robots.txt」トグル(robots.txtへの自動追記を制御、(1)とは別に動作)。
+      両方をオフにしないと、意図した通りのrobots.txtにはならなかった。
+    </li>
+    <li>
+      <strong>対応:</strong> Security画面で対象クローラーのBlockをオフ、さらに
+      「AI Crawl Control」→「Signals」にある「Managed robots.txt」トグルをオフに変更。
+      変更後、robots.txtを再取得して意図通りの内容になっていることを確認した。
+    </li>
+    <li>
+      <strong>学び:</strong> 自分のリポジトリ内のrobots.txtが正しくても、
+      Cloudflare側のゾーン設定で上書き・追記されるケースがある。
+      デプロイ後は必ず本番URLで実際のrobots.txtを直接確認する必要がある
+      (ソースコードの内容を見ただけでは不十分)。
+    </li>
+  </ul>
+
+  <h2>2026-08-07</h2>
+  <ul>
+    <li>サイト公開準備を開始</li>
+    <li>robots.txt / llms.txt / 構造化データ(Organization, Article, FAQPage, Person)を実装</li>
+  </ul>
 </BaseLayout>
-
-<style>
-  .eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #8a8778;
-    margin-bottom: 0.6rem;
-  }
-
-  .hero-title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-  }
-
-  .h2-sub {
-    font-family: "Inter", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #8a8778;
-    letter-spacing: 0.02em;
-    margin-left: 0.5rem;
-  }
-
-  .article-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .article-card {
-    display: block;
-    padding: 1.1rem 1.3rem;
-    border: 1px solid #e4e2db;
-    border-radius: 2px;
-    text-decoration: none;
-    transition: border-color 0.15s ease;
-  }
-
-  .article-card:hover {
-    border-color: #16233f;
-  }
-
-  .article-date {
-    display: block;
-    font-size: 0.72rem;
-    color: #a19d8c;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.35rem;
-  }
-
-  .article-title {
-    display: block;
-    font-family: "Noto Serif JP", serif;
-    font-size: 1.02rem;
-    color: #16233f;
-    margin-bottom: 0.45rem;
-  }
-
-  .article-excerpt {
-    display: block;
-    font-size: 0.85rem;
-    color: #666;
-    line-height: 1.6;
-  }
-</style>
