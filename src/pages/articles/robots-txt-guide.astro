@@ -7,9 +7,10 @@ const articleLd = {
   "headline": "robots.txtでAIクローラーを制御する方法(Cloudflareの落とし穴つき)",
   "description": "robots.txtの基本と、主要AIクローラーを許可する書き方を初心者向けに解説。あわせて、CloudflareのAI Crawl Control機能が自分のrobots.txtを上書きしていた実体験を紹介する。",
   "datePublished": "2026-08-11",
-  "dateModified": "2026-08-11",
+  "dateModified": "2026-08-12",
   "author": { "@type": "Person", "name": "asatrid" },
-  "publisher": { "@type": "Organization", "name": "AIO Field Notes" }
+  "publisher": { "@type": "Organization", "name": "AIO Field Notes" },
+  "image": "https://aio.tipsindex.net/cloudflare-block-crawler.png"
 };
 
 const faqLd = {
@@ -136,6 +137,21 @@ Disallow: / (拒否する場合)`}</code></pre>
       — robots.txtへの自動追記を行うかどうかの設定。(1)とは別に、独立して動作する
     </li>
   </ol>
+
+  <figure>
+    <img src="/cloudflare-block-crawler.png" alt="CloudflareのAI Crawl Control「Security」画面。クローラーごとの一覧の右端に「Block Crawler」列があり、各トグルをオフにすることでブロックを解除できる。" width="1634" height="1310" loading="lazy" />
+    <figcaption>
+      Security画面の「Block Crawler」列(本サイトのCloudflareダッシュボードのスクリーンショット。赤枠・赤字の注記は筆者が追記したもので、Cloudflare本来の表示ではない)。クローラーごとにトグルが並んでおり、オンのままだと該当クローラーのアクセスが403エラーでブロックされる。
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="/cloudflare-managed-robots-txt.png" alt="CloudflareのAI Crawl Control「Overview」画面。「Managed robots.txt」というトグルがあり、オンにするとCloudflareが自動でrobots.txtにルールを追記する。" width="1638" height="658" loading="lazy" />
+    <figcaption>
+      Overview画面の「Managed robots.txt」トグル(同じく本サイトのダッシュボードのスクリーンショット。赤枠・赤字の注記は筆者が追記)。オンのままだとCloudflareがrobots.txtへ自動的にルールを追記・更新する。(1)のBlock Crawlerとは独立した設定のため、両方確認する必要がある。
+    </figcaption>
+  </figure>
+
   <p>
     この2つは見た目が似ていますが完全に別の設定で、両方をオフにしないと、
     自分の書いたrobots.txtの内容通りには公開されませんでした。
@@ -175,5 +191,24 @@ Disallow: / (拒否する場合)`}</code></pre>
   pre code {
     background: none;
     padding: 0;
+  }
+
+  figure {
+    margin: 1.5rem 0;
+  }
+
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #e4e2db;
+    border-radius: 3px;
+  }
+
+  figcaption {
+    font-size: 0.78rem;
+    color: #8a8778;
+    line-height: 1.6;
+    margin-top: 0.5rem;
   }
 </style>
