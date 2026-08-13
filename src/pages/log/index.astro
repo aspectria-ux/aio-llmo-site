@@ -8,6 +8,54 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <h1>施策ログ</h1>
   <p>週次で実施した施策と、AI引用計測トラッキングシートの集計結果をここに記録していきます。</p>
 
+  <h2>2026-08-13</h2>
+  <p>
+    Google Search Consoleへの登録を検討し、事前確認としてrobots.txtが参照している
+    <code>sitemap-index.xml</code>に実際にアクセスしたところ404だった。原因調査から
+    GSC登録・サイトマップ送信までの記録。
+  </p>
+  <ul>
+    <li>
+      <strong>問題発見:</strong> <code>public/robots.txt</code>には
+      <code>Sitemap: https://aio.tipsindex.net/sitemap-index.xml</code>と記載していたが、
+      ブラウザで直接アクセスすると404。存在しないURLを案内していたことになる。
+    </li>
+    <li>
+      <strong>原因1:</strong> <code>astro.config.mjs</code>にサイトマップを自動生成する
+      <code>@astrojs/sitemap</code>連携が未導入だった。robots.txtに書いた案内文と、
+      実際のビルド構成が一致していなかった。
+    </li>
+    <li>
+      <strong>対応1:</strong> <code>@astrojs/sitemap</code>を追加。ただし最新版(3.7.x)には
+      ビルドが<code>Cannot read properties of undefined (reading 'reduce')</code>で
+      失敗する既知の不具合があったため、動作確認済みの<code>3.6.0</code>を明示的に指定した。
+    </li>
+    <li>
+      <strong>原因2:</strong> 新しい依存パッケージを<code>package.json</code>に追加した際、
+      <code>package-lock.json</code>(依存関係のバージョンを厳密に固定するファイル)を
+      更新しないままCommitしたため、Cloudflareのビルドが<code>npm ci</code>で
+      <code>EUSAGE</code>エラー(package.jsonとlockfileの不一致)を出して失敗した。
+    </li>
+    <li>
+      <strong>対応2:</strong> ローカルで正しい<code>package-lock.json</code>を再生成し、
+      GitHub上の既存ファイルと差し替え。再ビルド後、<code>sitemap-index.xml</code>が
+      正常なXMLを返すことを確認した。
+    </li>
+    <li>
+      Google Search Consoleにプロパティを追加し、HTMLタグ方式(<code>&lt;meta
+      name="google-site-verification"&gt;</code>を<code>BaseLayout.astro</code>の
+      <code>&lt;head&gt;</code>に追加)で所有権を確認。左メニューの「サイトマップ」から
+      <code>sitemap-index.xml</code>を送信し、ステータス「成功」を確認した。
+    </li>
+    <li>
+      <strong>学び:</strong> robots.txtやllms.txtに書いた「案内」と、実際のビルド出力は
+      別物であり、一致しているとは限らない。新しい依存パッケージを追加するときは、
+      <code>package.json</code>だけでなく<code>package-lock.json</code>も必ずセットで
+      更新・Commitする必要がある。今回も「コードを見ただけで安心せず、本番URLで確認する」
+      という8/10の教訓がそのまま当てはまった。
+    </li>
+  </ul>
+
   <h2>2026-08-10</h2>
   <p>
     Cloudflare Workers(Git連携)でサイトをデプロイし、独自サブドメイン
