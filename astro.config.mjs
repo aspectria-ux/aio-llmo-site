@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // このサイトは静的サイト生成(SSG)で出力されます。
 // JavaScriptの実行なしでもAIクローラー(GPTBot/ClaudeBot/PerplexityBot等)が
@@ -6,4 +7,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://aio.tipsindex.net',
   output: 'static',
+  integrations: [sitemap()],
 });
